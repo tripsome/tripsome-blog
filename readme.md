@@ -1,4 +1,4 @@
-<p align="center"><img src="https://themsaid.com/img/wink.jpg?1"></p>
+<p align="center"><img src="/art/header.png?1" alt="wink logo"></p>
 
 Wink adds a nice UI where you can manage a publication of any size with posts, pages, tags, and authors.
 
@@ -20,7 +20,7 @@ php artisan wink:install
 php artisan storage:link
 ```
 
-**Configure the database connection** wink is going to be using in `config/wink.php`. The run:
+**Configure the database connection** wink is going to be using in `config/wink.php`. Then run:
 
 ```sh
 php artisan wink:migrate
@@ -45,6 +45,8 @@ If you want to upload images to S3, update the `storage_disk` attribute in your 
     ],
 ],
 ```
+
+Note: you're going to need to install the AWS-S3 Flysystem adapter, using `composer require league/flysystem-aws-s3-v3` for this to work.
 
 ## Using Unsplash
 
@@ -75,6 +77,13 @@ Wink is faceless, it doesn't have any opinions on how you display your content i
 - `Wink\WinkTag`
 
 To display posts and pages content, use `$post->content` instead of `$post->body`. The content will always be in HTML format while the body might be HTML or raw markdown based on the post type.
+
+## Credits
+
+- [Mohamed Said](https://github.com/themsaid)
+- [All contributors](https://github.com/themsaid/wink/contributors)
+
+Special thanks to [Caneco](https://twitter.com/caneco) for the logo ✨
 
 ## Contributing
 

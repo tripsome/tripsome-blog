@@ -73,16 +73,13 @@
 
                 icons = Quill.import('ui/icons');
                 icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg');
-                icons.header[4] = require('!html-loader!quill/assets/icons/header-4.svg');
-                icons.header[5] = require('!html-loader!quill/assets/icons/header-5.svg');
 
                 return new Quill(this.$refs.editor, {
                     modules: {
                         syntax: true,
                         toolbar: [
                             ['bold', 'italic', 'underline', 'strike', 'code'],
-                            [{'header': '2'}, {'header': '3'}, {'header': '4'}, {'header': '5'}],
-                            [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
+                            [{'header': '2'}, {'header': '3'}],
                             [{'list': 'ordered'}, {'list': 'bullet'}, 'link'],
                             ['blockquote', 'code-block'],
 //                        [{'direction': 'rtl'}],

@@ -46,7 +46,7 @@
                     featured_image_caption: '',
                     body: '',
                     published: false,
-                    markdown: null,
+                    markdown: ({null: null, 'markdown' : true, 'rich': false})[window.Wink.default_editor],
                     publish_date: '',
                     meta: {
                         meta_description: '',
@@ -277,6 +277,15 @@
             featuredImageChanged({url, caption}) {
                 this.form.featured_image = url;
                 this.form.featured_image_caption = caption;
+            },
+
+
+            /**
+             * Handle the change event of featured images.
+             */
+            featuredImageRemoved() {
+                this.form.featured_image = null;
+                this.form.featured_image_caption = null;
             },
 
 
@@ -540,6 +549,7 @@
         <!-- Featured Image Modal -->
         <featured-image-uploader :post-id="this.form.id"
                                  @changed="featuredImageChanged"
+                                 @removed="featuredImageRemoved"
                                  :current-image-url="form.featured_image"
                                  :current-caption="form.featured_image_caption"></featured-image-uploader>
     </div>
