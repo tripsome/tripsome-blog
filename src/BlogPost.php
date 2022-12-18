@@ -108,7 +108,7 @@ class BlogPost extends AbstractBlogModel
     {
         $image =  $this->featured_image;
         $image = explode("storage/blog/", $image);
-        return "/storage/blog/thumb/$image[1]";
+        return storage_path("/blog/thumb/$image[1]");
     }
 
     /**
