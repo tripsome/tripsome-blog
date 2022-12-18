@@ -19,7 +19,7 @@ module.exports = {
 
     methods: {
         loadEntries() {
-            this.http().get(this.baseURL + '?wink=wink' +
+            this.http().get(this.baseURL + '?blog=blog' +
                 (this.searchQuery ? '&search=' + this.searchQuery : '') +
                 (this.filters && this.filters.status ? '&status=' + this.filters.status : '') +
                 (this.filters && this.filters.author_id ? '&author_id=' + this.filters.author_id : '') +

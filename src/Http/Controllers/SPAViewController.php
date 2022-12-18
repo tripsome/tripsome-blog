@@ -1,8 +1,8 @@
 <?php
 
-namespace Wink\Http\Controllers;
+namespace Tripsome\Blog\Http\Controllers;
 
-use Wink\Wink;
+use Tripsome\Blog\Blog;
 
 class SPAViewController
 {
@@ -13,8 +13,8 @@ class SPAViewController
      */
     public function __invoke()
     {
-        return view('wink::layout', [
-            'winkScriptVariables' => Wink::scriptVariables(),
+        return view('blog::layout', [
+            'blogScriptVariables' => Blog::scriptVariables(),
         ]);
     }
 }

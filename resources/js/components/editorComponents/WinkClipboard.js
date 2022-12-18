@@ -5,7 +5,7 @@ const Clipboard = Quill.import('modules/clipboard')
 const Delta = Quill.import('delta')
 
 // Inspired by https://github.com/Artem-Schander/quill-paste-smart/blob/master/src/quill-paste-smart.js
-class WinkClipboard extends Clipboard {
+class BlogClipboard extends Clipboard {
     onPaste(e) {
         let delta;
         let text;
@@ -60,4 +60,4 @@ class WinkClipboard extends Clipboard {
     }
 }
 
-export default WinkClipboard
+export default BlogClipboard

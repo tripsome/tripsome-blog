@@ -1,6 +1,6 @@
 {
-    "name": "themsaid/wink",
-    "description": "Wink Publishing Framework.",
+    "name": "tripsome/blog",
+    "description": "Blog Publishing Framework.",
     "keywords": ["framework", "laravel", "blog"],
     "license": "MIT",
     "authors": [
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Wink\\": "src/"
+            "Tripsome\\Blog\\": "src/"
         }
     },
     "extra": {
@@ -24,7 +24,7 @@
         },
         "laravel": {
             "providers": [
-                "Wink\\WinkServiceProvider"
+                "Tripsome\\Blog\\BlogServiceProvider"
             ]
         }
     },

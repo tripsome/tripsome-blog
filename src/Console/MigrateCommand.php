@@ -1,12 +1,12 @@
 <?php
 
-namespace Wink\Console;
+namespace Tripsome\Blog\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use Wink\WinkAuthor;
+use Tripsome\Blog\BlogAuthor;
 
 class MigrateCommand extends Command
 {
@@ -15,7 +15,7 @@ class MigrateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'wink:migrate {email?} {password?}
+    protected $signature = 'blog:migrate {email?} {password?}
                 {--force : Force the operation to run when in production}';
 
     /**
@@ -23,7 +23,7 @@ class MigrateCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Run database migrations for Wink';
+    protected $description = 'Run database migrations for Blog';
 
     /**
      * Execute the console command.
@@ -33,12 +33,12 @@ class MigrateCommand extends Command
     public function handle()
     {
         $shouldCreateNewAuthor =
-            ! Schema::connection(config('wink.database_connection'))->hasTable('wink_authors') ||
-            ! WinkAuthor::count();
+            ! Schema::connection(config('blog.database_connection'))->hasTable('blog_authors') ||
+            ! BlogAuthor::count();
 
         $this->call('migrate', [
-            '--database' => config('wink.database_connection'),
-            '--path' => 'vendor/themsaid/wink/src/Migrations',
+            '--database' => config('blog.database_connection'),
+            '--path' => 'vendor/themsaid/blog/src/Migrations',
             '--force' => $this->option('force') ?? true,
         ]);
 
@@ -46,7 +46,7 @@ class MigrateCommand extends Command
             $email = ! $this->argument('email') ? 'admin@mail.com' : $this->argument('email');
             $password = ! $this->argument('password') ? Str::random() : $this->argument('password');
 
-            WinkAuthor::create([
+            BlogAuthor::create([
                 'id' => (string) Str::uuid(),
                 'name' => 'Regina Phalange',
                 'slug' => 'regina-phalange',
@@ -57,7 +57,7 @@ class MigrateCommand extends Command
 
             $this->line('');
             $this->line('');
-            $this->line('Wink is ready for use. Enjoy!');
+            $this->line('Blog is ready for use. Enjoy!');
             $this->line('You may log in using <info>'.$email.'</info> and password: <info>'.$password.'</info>');
         }
     }

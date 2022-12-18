@@ -1,11 +1,11 @@
 <?php
 
-namespace Wink;
+namespace Blog;
 
-class Wink
+class Blog
 {
     /**
-     * Get the default JavaScript variables for Wink.
+     * Get the default JavaScript variables for Blog.
      *
      * @return array
      */
@@ -13,10 +13,10 @@ class Wink
     {
         return [
             'unsplash_key' => config('services.unsplash.key'),
-            'path' => config('wink.path'),
-            'preview_path' => config('wink.preview_path'),
-            'author' => auth('wink')->check() ? auth('wink')->user()->only('name', 'avatar', 'id') : null,
-            'default_editor' => config('wink.editor.default'),
+            'path' => config('blog.path'),
+            'preview_path' => config('blog.preview_path'),
+            'author' => auth('blog')->check() ? auth('blog')->user()->only('name', 'avatar', 'id') : null,
+            'default_editor' => config('blog.editor.default'),
         ];
     }
 }

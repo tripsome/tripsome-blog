@@ -13,19 +13,19 @@ class AddMetaFields extends Migration
      */
     public function up()
     {
-        Schema::table('wink_tags', function (Blueprint $table) {
+        Schema::table('blog_tags', function (Blueprint $table) {
             $table->text('meta')->nullable();
         });
 
-        Schema::table('wink_pages', function (Blueprint $table) {
+        Schema::table('blog_pages', function (Blueprint $table) {
             $table->text('meta')->nullable();
         });
 
-        Schema::table('wink_authors', function (Blueprint $table) {
+        Schema::table('blog_authors', function (Blueprint $table) {
             $table->text('meta')->nullable();
         });
 
-        Schema::table('wink_posts', function (Blueprint $table) {
+        Schema::table('blog_posts', function (Blueprint $table) {
             $table->text('meta')->nullable();
         });
     }
@@ -37,19 +37,19 @@ class AddMetaFields extends Migration
      */
     public function down()
     {
-        Schema::table('wink_tags', function (Blueprint $table) {
+        Schema::table('blog_tags', function (Blueprint $table) {
             $table->dropColumn('meta');
         });
 
-        Schema::table('wink_pages', function (Blueprint $table) {
+        Schema::table('blog_pages', function (Blueprint $table) {
             $table->dropColumn('meta');
         });
 
-        Schema::table('wink_authors', function (Blueprint $table) {
+        Schema::table('blog_authors', function (Blueprint $table) {
             $table->dropColumn('meta');
         });
 
-        Schema::table('wink_posts', function (Blueprint $table) {
+        Schema::table('blog_posts', function (Blueprint $table) {
             $table->dropColumn('meta');
         });
     }

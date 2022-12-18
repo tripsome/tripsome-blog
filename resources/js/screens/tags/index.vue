@@ -31,7 +31,7 @@
          * Prepare the component.
          */
         mounted() {
-            document.title = "Tags — Wink.";
+            document.title = "Tags — Blog.";
 
             this.loadEntries();
         },

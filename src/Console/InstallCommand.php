@@ -1,6 +1,6 @@
 <?php
 
-namespace Wink\Console;
+namespace Tripsome\Blog\Console;
 
 use Illuminate\Console\Command;
 
@@ -11,14 +11,14 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'wink:install';
+    protected $signature = 'blog:install';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Install all of the Wink resources';
+    protected $description = 'Install all of the Blog resources';
 
     /**
      * Execute the console command.
@@ -27,12 +27,12 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->comment('Publishing Wink Assets...');
-        $this->callSilent('vendor:publish', ['--tag' => 'wink-assets']);
+        $this->comment('Publishing Blog Assets...');
+        $this->callSilent('vendor:publish', ['--tag' => 'blog-assets']);
 
-        $this->comment('Publishing Wink Configuration...');
-        $this->callSilent('vendor:publish', ['--tag' => 'wink-config']);
+        $this->comment('Publishing Blog Configuration...');
+        $this->callSilent('vendor:publish', ['--tag' => 'blog-config']);
 
-        $this->info('Wink was installed successfully.');
+        $this->info('Blog was installed successfully.');
     }
 }

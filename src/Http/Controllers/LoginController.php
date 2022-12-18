@@ -1,6 +1,6 @@
 <?php
 
-namespace Wink\Http\Controllers;
+namespace Tripsome\Blog\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +15,7 @@ class LoginController
      */
     public function showLoginForm()
     {
-        return view('wink::login');
+        return view('blog::login');
     }
 
     /**
@@ -34,7 +34,7 @@ class LoginController
             request()->only('email', 'password'),
             request()->filled('remember')
         )) {
-            return redirect('/'.config('wink.path'));
+            return redirect('/'.config('blog.path'));
         }
 
         throw ValidationException::withMessages([
@@ -54,7 +54,7 @@ class LoginController
 
         $request->session()->invalidate();
 
-        return redirect()->route('wink.auth.login')->with('loggedOut', true);
+        return redirect()->route('blog.auth.login')->with('loggedOut', true);
     }
 
     /**
@@ -64,6 +64,6 @@ class LoginController
      */
     protected function guard()
     {
-        return Auth::guard('wink');
+        return Auth::guard('blog');
     }
 }

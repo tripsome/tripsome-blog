@@ -1,11 +1,11 @@
 <?php
 
-namespace Wink\Http\Controllers;
+namespace Tripsome\Blog\Http\Controllers;
 
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Wink\Http\Resources\TagsResource;
-use Wink\WinkTag;
+use Tripsome\Blog\Http\Resources\TagsResource;
+use Tripsome\Blog\BlogTag;
 
 class TagsController
 {
@@ -16,7 +16,7 @@ class TagsController
      */
     public function index()
     {
-        $entries = WinkTag::when(request()->has('search'), function ($q) {
+        $entries = BlogTag::when(request()->has('search'), function ($q) {
             $q->where('name', 'LIKE', '%'.request('search').'%');
         })
             ->orderBy('created_at', 'DESC')
@@ -36,13 +36,13 @@ class TagsController
     {
         if ($id === 'new') {
             return response()->json([
-                'entry' => WinkTag::make([
+                'entry' => BlogTag::make([
                     'id' => Str::uuid(),
                 ]),
             ]);
         }
 
-        $entry = WinkTag::findOrFail($id);
+        $entry = BlogTag::findOrFail($id);
 
         return response()->json([
             'entry' => $entry,
@@ -65,10 +65,10 @@ class TagsController
 
         validator($data, [
             'name' => 'required',
-            'slug' => 'required|'.Rule::unique(config('wink.database_connection').'.wink_tags', 'slug')->ignore(request('id')),
+            'slug' => 'required|'.Rule::unique(config('blog.database_connection').'.blog_tags', 'slug')->ignore(request('id')),
         ])->validate();
 
-        $entry = $id !== 'new' ? WinkTag::findOrFail($id) : new WinkTag(['id' => request('id')]);
+        $entry = $id !== 'new' ? BlogTag::findOrFail($id) : new BlogTag(['id' => request('id')]);
 
         $entry->fill($data);
 
@@ -87,7 +87,7 @@ class TagsController
      */
     public function delete($id)
     {
-        $entry = WinkTag::findOrFail($id);
+        $entry = BlogTag::findOrFail($id);
 
         $entry->delete();
     }

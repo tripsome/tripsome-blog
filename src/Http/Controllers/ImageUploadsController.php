@@ -1,6 +1,6 @@
 <?php
 
-namespace Wink\Http\Controllers;
+namespace Tripsome\Blog\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -13,14 +13,14 @@ class ImageUploadsController
      */
     public function upload()
     {
-        $path = request()->image->store(config('wink.storage_path'), [
-            'disk' => config('wink.storage_disk'),
+        $path = request()->image->store(config('blog.storage_path'), [
+            'disk' => config('blog.storage_disk'),
             'visibility' => 'public',
         ]
         );
 
         return response()->json([
-            'url' => Storage::disk(config('wink.storage_disk'))->url($path),
+            'url' => Storage::disk(config('blog.storage_disk'))->url($path),
         ]);
     }
 }

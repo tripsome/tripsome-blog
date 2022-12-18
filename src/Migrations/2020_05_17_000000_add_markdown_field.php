@@ -13,7 +13,7 @@ class AddMarkdownField extends Migration
      */
     public function up()
     {
-        Schema::table('wink_posts', function (Blueprint $table) {
+        Schema::table('blog_posts', function (Blueprint $table) {
             $table->boolean('markdown')->default(false);
         });
     }
@@ -25,7 +25,7 @@ class AddMarkdownField extends Migration
      */
     public function down()
     {
-        Schema::table('wink_posts', function (Blueprint $table) {
+        Schema::table('blog_posts', function (Blueprint $table) {
             $table->boolean('markdown')->default(false);
         });
     }

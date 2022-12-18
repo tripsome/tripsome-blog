@@ -1,16 +1,16 @@
 <?php
 
-namespace Wink;
+namespace Blog;
 
 use App\Providers\TenancyServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
-use Wink\Http\Controllers\ForgotPasswordController;
-use Wink\Http\Controllers\LoginController;
-use Wink\Http\Middleware\Authenticate;
+use Tripsome\Blog\Http\Controllers\ForgotPasswordController;
+use Tripsome\Blog\Http\Controllers\LoginController;
+use Tripsome\Blog\Http\Middleware\Authenticate;
 
-class WinkServiceProvider extends ServiceProvider
+class BlogServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any package services.
@@ -25,7 +25,7 @@ class WinkServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(
             __DIR__ . '/../resources/views',
-            'wink'
+            'blog'
         );
     }
 
@@ -37,11 +37,11 @@ class WinkServiceProvider extends ServiceProvider
     private function registerRoutes()
     {  
         Route::middleware([InitializeTenancyByDomain::class])->group(function () {
-            $middlewareGroup = config('wink.middleware_group');
+            $middlewareGroup = config('blog.middleware_group');
             Route::middleware($middlewareGroup)
-                ->as('wink.')
-                ->domain(config('wink.domain'))
-                ->prefix(config('wink.path'))
+                ->as('blog.')
+                ->domain(config('blog.domain'))
+                ->prefix(config('blog.path'))
                 ->group(function () {
                     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('auth.login');
                     Route::post('/login', [LoginController::class, 'login'])->name('auth.attempt');
@@ -52,9 +52,9 @@ class WinkServiceProvider extends ServiceProvider
                 });
 
             Route::middleware([$middlewareGroup, Authenticate::class])
-                ->as('wink.')
-                ->domain(config('wink.domain'))
-                ->prefix(config('wink.path'))
+                ->as('blog.')
+                ->domain(config('blog.domain'))
+                ->prefix(config('blog.path'))
                 ->group(function () {
                     $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
                 });
@@ -68,14 +68,14 @@ class WinkServiceProvider extends ServiceProvider
      */
     private function registerAuthGuard()
     {
-        $this->app['config']->set('auth.providers.wink_authors', [
+        $this->app['config']->set('auth.providers.blog_authors', [
             'driver' => 'eloquent',
-            'model' => WinkAuthor::class,
+            'model' => BlogAuthor::class,
         ]);
 
-        $this->app['config']->set('auth.guards.wink', [
+        $this->app['config']->set('auth.guards.blog', [
             'driver' => 'session',
-            'provider' => 'wink_authors',
+            'provider' => 'blog_authors',
         ]);
     }
 
@@ -88,12 +88,12 @@ class WinkServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../public' => public_path('vendor/wink'),
-            ], 'wink-assets');
+                __DIR__ . '/../public' => public_path('vendor/blog'),
+            ], 'blog-assets');
 
             $this->publishes([
-                __DIR__ . '/../config/wink.php' => config_path('wink.php'),
-            ], 'wink-config');
+                __DIR__ . '/../config/blog.php' => config_path('blog.php'),
+            ], 'blog-config');
         }
     }
 
@@ -105,8 +105,8 @@ class WinkServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/wink.php',
-            'wink'
+            __DIR__ . '/../config/blog.php',
+            'blog'
         );
         $this->commands([
             Console\InstallCommand::class,

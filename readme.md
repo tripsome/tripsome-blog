@@ -1,36 +1,36 @@
-<p align="center"><img src="/art/header.png?1" alt="wink logo"></p>
+<p align="center"><img src="/art/header.png?1" alt="blog logo"></p>
 
-Wink adds a nice UI where you can manage a publication of any size with posts, pages, tags, and authors.
+Blog adds a nice UI where you can manage a publication of any size with posts, pages, tags, and authors.
 
 You can add photos, code blocks, featured images, social media & SEO attributes, embedded HTML (YouTube Videos, Embedded Podcasts Episodes, Tweets, ...), and markdown!
 
-Wink is used to manage the [official Laravel blog](https://blog.laravel.com), [divinglaravel.com](https://divinglaravel.com), and many more.
+Blog is used to manage the [official Laravel blog](https://blog.laravel.com), [divinglaravel.com](https://divinglaravel.com), and many more.
 
 Dark & Light modes available so everyone is happy 😁
 
 ## Installation
 
-Wink uses a separate database connection and authentication system so that you don't have to modify any of your project code.
+Blog uses a separate database connection and authentication system so that you don't have to modify any of your project code.
 
-To install Wink, run these commands in the root of your Laravel app:
+To install Blog, run these commands in the root of your Laravel app:
 
 ```sh
-composer require themsaid/wink
-php artisan wink:install
+composer require themsaid/blog
+php artisan blog:install
 php artisan storage:link
 ```
 
-**Configure the database connection** wink is going to be using in `config/wink.php`. Then run:
+**Configure the database connection** blog is going to be using in `config/blog.php`. Then run:
 
 ```sh
-php artisan wink:migrate
+php artisan blog:migrate
 ```
 
-Head to `yourproject.test/wink` and use the provided email and password to log in.
+Head to `yourproject.test/blog` and use the provided email and password to log in.
 
 ## Uploading to S3
 
-If you want to upload images to S3, update the `storage_disk` attribute in your `wink.php` configuration file to s3. Make sure your S3 disk is correctly configured in your `filesystems.php` configuration file.
+If you want to upload images to S3, update the `storage_disk` attribute in your `blog.php` configuration file to s3. Make sure your S3 disk is correctly configured in your `filesystems.php` configuration file.
 
 ```php
 's3' => [
@@ -63,25 +63,25 @@ Visit https://unsplash.com/oauth/applications to create a new unsplash app. Grab
 After each update, make sure you run these commands:
 
 ```sh
-php artisan wink:migrate
-php artisan vendor:publish --tag=wink-assets --force
+php artisan blog:migrate
+php artisan vendor:publish --tag=blog-assets --force
 ```
 
 ## Displaying your content
 
-Wink is faceless, it doesn't have any opinions on how you display your content in your frontend. You can use the wink models in your controllers to display the different resources:
+Blog is faceless, it doesn't have any opinions on how you display your content in your frontend. You can use the blog models in your controllers to display the different resources:
 
-- `Wink\WinkPost`
-- `Wink\WinkPage`
-- `Wink\WinkAuthor`
-- `Wink\WinkTag`
+- `Tripsome\Blog\BlogPost`
+- `Tripsome\Blog\BlogPage`
+- `Tripsome\Blog\BlogAuthor`
+- `Tripsome\Blog\BlogTag`
 
 To display posts and pages content, use `$post->content` instead of `$post->body`. The content will always be in HTML format while the body might be HTML or raw markdown based on the post type.
 
 ## Credits
 
 - [Mohamed Said](https://github.com/themsaid)
-- [All contributors](https://github.com/themsaid/wink/contributors)
+- [All contributors](https://github.com/themsaid/blog/contributors)
 
 Special thanks to [Caneco](https://twitter.com/caneco) for the logo ✨
 
@@ -91,4 +91,4 @@ Check the [contribution guide](CONTRIBUTING.md).
 
 ## License
 
-Wink is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Blog is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

@@ -2,10 +2,10 @@ import Quill from 'quill';
 
 let BlockEmbed = Quill.import('blots/block/embed');
 
-class WinkDividerBlot extends BlockEmbed {
+class BlogDividerBlot extends BlockEmbed {
 }
 
-WinkDividerBlot.blotName = 'divider';
-WinkDividerBlot.tagName = 'hr';
+BlogDividerBlot.blotName = 'divider';
+BlogDividerBlot.tagName = 'hr';
 
-export default WinkDividerBlot;
+export default BlogDividerBlot;

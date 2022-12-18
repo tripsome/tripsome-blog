@@ -1,12 +1,12 @@
 <?php
 
-namespace Wink\Http\Controllers;
+namespace Tripsome\Blog\Http\Controllers;
 
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Wink\Http\Resources\PostsResource;
-use Wink\WinkPost;
-use Wink\WinkTag;
+use Tripsome\Blog\Http\Resources\PostsResource;
+use Tripsome\Blog\BlogPost;
+use Tripsome\Blog\BlogTag;
 
 class PostsController
 {
@@ -18,7 +18,7 @@ class PostsController
     public function index()
     {
         if(auth()->user()->IsAdmin()){
-            $entries = WinkPost::when(request()->has('search'), function ($q) {
+            $entries = BlogPost::when(request()->has('search'), function ($q) {
                 $q->where('title', 'LIKE', '%'.request('search').'%');
             })->when(request('status'), function ($q, $value) {
                 $q->$value();
@@ -34,7 +34,7 @@ class PostsController
                 ->paginate(30);
             return PostsResource::collection($entries);
         }else{
-            $entries = WinkPost::when(request()->has('search'), function ($q) {
+            $entries = BlogPost::when(request()->has('search'), function ($q) {
                 $q->where('title', 'LIKE', '%'.request('search').'%');
             })->when(request('status'), function ($q, $value) {
                 $q->$value();
@@ -63,7 +63,7 @@ class PostsController
     {
         if ($id === 'new') {
             return response()->json([
-                'entry' => WinkPost::make([
+                'entry' => BlogPost::make([
                     'id' => Str::uuid(),
                     'publish_date' => now()->format('Y-m-d H:i:00'),
                     'markdown' => null,
@@ -71,7 +71,7 @@ class PostsController
             ]);
         }
 
-        $entry = WinkPost::with('tags')->findOrFail($id);
+        $entry = BlogPost::with('tags')->findOrFail($id);
 
         return response()->json([
             'entry' => $entry,
@@ -106,10 +106,10 @@ class PostsController
             'publish_date' => 'required|date',
             'author_id' => 'required',
             'title' => 'required',
-            'slug' => 'required|'.Rule::unique(config('wink.database_connection').'.wink_posts', 'slug')->ignore(request('id')),
+            'slug' => 'required|'.Rule::unique(config('blog.database_connection').'.blog_posts', 'slug')->ignore(request('id')),
         ])->validate();
 
-        $entry = $id !== 'new' ? WinkPost::findOrFail($id) : new WinkPost(['id' => request('id')]);
+        $entry = $id !== 'new' ? BlogPost::findOrFail($id) : new BlogPost(['id' => request('id')]);
 
         $entry->fill($data);
 
@@ -132,13 +132,13 @@ class PostsController
      */
     private function collectTags($incomingTags)
     {
-        $allTags = WinkTag::all();
+        $allTags = BlogTag::all();
 
         return collect($incomingTags)->map(function ($incomingTag) use ($allTags) {
             $tag = $allTags->where('id', $incomingTag['id'])->first();
 
             if (! $tag) {
-                $tag = WinkTag::create([
+                $tag = BlogTag::create([
                     'id' => $id = Str::uuid(),
                     'name' => $incomingTag['name'],
                     'slug' => Str::slug($incomingTag['name']),
@@ -157,7 +157,7 @@ class PostsController
      */
     public function delete($id)
     {
-        $entry = WinkPost::findOrFail($id);
+        $entry = BlogPost::findOrFail($id);
 
         $entry->delete();
     }

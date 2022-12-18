@@ -3,11 +3,11 @@
     import Quill from 'quill';
     import ImageUploader from './editorComponents/ImageUploader.vue';
     import HTMLEmbedder from './editorComponents/HTMLEmbedder.vue';
-    import WinkImageBlot from './editorComponents/WinkImageBlot.js';
-    import WinkDividerBlot from './editorComponents/WinkDividerBlot.js';
+    import BlogImageBlot from './editorComponents/BlogImageBlot.js';
+    import BlogDividerBlot from './editorComponents/BlogDividerBlot.js';
     import HTMLBlot from './editorComponents/HTMLBlot.js';
-    import WinkClipboard from './editorComponents/WinkClipboard.js';
-    import WinkLink from './editorComponents/WinkLink.js';
+    import BlogClipboard from './editorComponents/BlogClipboard.js';
+    import BlogLink from './editorComponents/BlogLink.js';
     import Parchment from 'parchment';
 
     export default {
@@ -65,11 +65,11 @@
             createEditor() {
                 let icons;
 
-                Quill.register(WinkImageBlot, true);
-                Quill.register(WinkDividerBlot, true);
+                Quill.register(BlogImageBlot, true);
+                Quill.register(BlogDividerBlot, true);
                 Quill.register(HTMLBlot, true);
-                Quill.register(WinkLink, true);
-                Quill.register('modules/clipboard', WinkClipboard, true)
+                Quill.register(BlogLink, true);
+                Quill.register('modules/clipboard', BlogClipboard, true)
 
                 icons = Quill.import('ui/icons');
                 icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg');
@@ -111,7 +111,7 @@
                 this.editor.root.addEventListener('click', (ev) => {
                     let blot = Parchment.find(ev.target, true);
 
-                    if (blot instanceof WinkImageBlot) {
+                    if (blot instanceof BlogImageBlot) {
                         var values = blot.value(blot.domNode)['captioned-image'];
 
                         values.existingBlot = blot;

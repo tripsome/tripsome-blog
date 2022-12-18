@@ -1,6 +1,6 @@
 <?php
 
-namespace Wink;
+namespace Blog;
 
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Collection;
  * @property CarbonInterface $updated_at
  * @property CarbonInterface $created_at
  * @property array<mixed>|null $meta
- * @property-read Collection<WinkPost> $posts
+ * @property-read Collection<BlogPost> $posts
  */
-class WinkAuthor extends AbstractWinkModel implements Authenticatable
+class BlogAuthor extends AbstractBlogModel implements Authenticatable
 {
     const ADMIN_TYPE = 100;
     const DEFAULT_TYPE = 1;
@@ -44,7 +44,7 @@ class WinkAuthor extends AbstractWinkModel implements Authenticatable
      *
      * @var string
      */
-    protected $table = 'wink_authors';
+    protected $table = 'blog_authors';
 
     /**
      * The primary key for the model.
@@ -90,7 +90,7 @@ class WinkAuthor extends AbstractWinkModel implements Authenticatable
      */
     public function posts()
     {
-        return $this->hasMany(WinkPost::class, 'author_id');
+        return $this->hasMany(BlogPost::class, 'author_id');
     }
 
     public function isAdmin()    {

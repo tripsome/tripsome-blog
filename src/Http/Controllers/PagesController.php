@@ -1,11 +1,11 @@
 <?php
 
-namespace Wink\Http\Controllers;
+namespace Tripsome\Blog\Http\Controllers;
 
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Wink\Http\Resources\PagesResource;
-use Wink\WinkPage;
+use Tripsome\Blog\Http\Resources\PagesResource;
+use Tripsome\Blog\BlogPage;
 
 class PagesController
 {
@@ -16,7 +16,7 @@ class PagesController
      */
     public function index()
     {
-        $entries = WinkPage::when(request()->has('search'), function ($q) {
+        $entries = BlogPage::when(request()->has('search'), function ($q) {
             $q->where('title', 'LIKE', '%'.request('search').'%');
         })
             ->orderBy('created_at', 'DESC')
@@ -35,11 +35,11 @@ class PagesController
     {
         if ($id === 'new') {
             return response()->json([
-                'entry' => WinkPage::make(['id' => Str::uuid()]),
+                'entry' => BlogPage::make(['id' => Str::uuid()]),
             ]);
         }
 
-        $entry = WinkPage::findOrFail($id);
+        $entry = BlogPage::findOrFail($id);
 
         return response()->json([
             'entry' => $entry,
@@ -65,10 +65,10 @@ class PagesController
 
         validator($data, [
             'title' => 'required',
-            'slug' => 'required|'.Rule::unique(config('wink.database_connection').'.wink_pages', 'slug')->ignore(request('id')),
+            'slug' => 'required|'.Rule::unique(config('blog.database_connection').'.blog_pages', 'slug')->ignore(request('id')),
         ])->validate();
 
-        $entry = $id !== 'new' ? WinkPage::findOrFail($id) : new WinkPage(['id' => request('id')]);
+        $entry = $id !== 'new' ? BlogPage::findOrFail($id) : new BlogPage(['id' => request('id')]);
 
         $entry->fill($data);
 
@@ -87,7 +87,7 @@ class PagesController
      */
     public function delete($id)
     {
-        $entry = WinkPage::findOrFail($id);
+        $entry = BlogPage::findOrFail($id);
 
         $entry->delete();
     }

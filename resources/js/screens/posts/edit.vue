@@ -46,7 +46,7 @@
                     featured_image_caption: '',
                     body: '',
                     published: false,
-                    markdown: ({null: null, 'markdown' : true, 'rich': false})[window.Wink.default_editor],
+                    markdown: ({null: null, 'markdown' : true, 'rich': false})[window.Blog.default_editor],
                     publish_date: '',
                     meta: {
                         meta_description: '',
@@ -95,7 +95,7 @@
          * Prepare the component.
          */
         mounted() {
-            document.title = "Edit Post — Wink.";
+            document.title = "Edit Post — Blog.";
 
             this.loadResources();
 
@@ -114,7 +114,7 @@
 
         computed: {
             postPreviewLink() {
-                return this.Wink.preview_path.replace('{postSlug}', this.form.slug);
+                return this.Blog.preview_path.replace('{postSlug}', this.form.slug);
             }
         },
 
@@ -203,7 +203,7 @@
                     this.authors = response.data.data;
 
                     if (!this.form.author_id && this.authors) {
-                        this.form.author_id = this.Wink.author.id;
+                        this.form.author_id = this.Blog.author.id;
                     }
                 });
 

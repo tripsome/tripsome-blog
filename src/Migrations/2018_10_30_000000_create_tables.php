@@ -13,7 +13,7 @@ class CreateTables extends Migration
      */
     public function up()
     {
-        Schema::create('wink_tags', function (Blueprint $table) {
+        Schema::create('blog_tags', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('slug')->unique();
             $table->string('name');
@@ -22,14 +22,14 @@ class CreateTables extends Migration
             $table->index('created_at');
         });
 
-        Schema::create('wink_posts_tags', function (Blueprint $table) {
+        Schema::create('blog_posts_tags', function (Blueprint $table) {
             $table->uuid('post_id');
             $table->uuid('tag_id');
 
             $table->unique(['post_id', 'tag_id']);
         });
 
-        Schema::create('wink_posts', function (Blueprint $table) {
+        Schema::create('blog_posts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('slug')->unique();
             $table->string('title');
@@ -43,7 +43,7 @@ class CreateTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('wink_authors', function (Blueprint $table) {
+        Schema::create('blog_authors', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('slug')->unique();
             $table->string('name');
@@ -55,7 +55,7 @@ class CreateTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('wink_pages', function (Blueprint $table) {
+        Schema::create('blog_pages', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('slug')->unique();
             $table->string('title');
@@ -71,10 +71,10 @@ class CreateTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wink_tags');
-        Schema::dropIfExists('wink_posts_tags');
-        Schema::dropIfExists('wink_authors');
-        Schema::dropIfExists('wink_posts');
-        Schema::dropIfExists('wink_pages');
+        Schema::dropIfExists('blog_tags');
+        Schema::dropIfExists('blog_posts_tags');
+        Schema::dropIfExists('blog_authors');
+        Schema::dropIfExists('blog_posts');
+        Schema::dropIfExists('blog_pages');
     }
 }

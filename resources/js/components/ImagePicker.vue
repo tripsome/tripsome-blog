@@ -38,7 +38,7 @@
 
         methods: {
             getImagesFromUnsplash(page = 1) {
-                if (!Wink.unsplash_key) {
+                if (!Blog.unsplash_key) {
                     return this.alertError('Please configure your Unsplash API Key.');
                 }
 
@@ -46,7 +46,7 @@
 
                 this.searchingUnsplash = true;
 
-                axios.get('https://api.unsplash.com/search/photos?client_id=' + Wink.unsplash_key +
+                axios.get('https://api.unsplash.com/search/photos?client_id=' + Blog.unsplash_key +
                     '&orientation=landscape&per_page=19' +
                     '&query=' + this.unsplashSearchTerm +
                     '&page=' + page
@@ -141,8 +141,8 @@
 
         <div class="mb-0">
             Please <label :for="'imageUpload'+_uid" class="cursor-pointer underline">upload</label> an image
-            <span v-if="Wink.unsplash_key">or</span>
-            <a v-if="Wink.unsplash_key" href="#" @click.prevent="openUnsplashModal" class="text-text-color">search Unsplash</a>
+            <span v-if="Blog.unsplash_key">or</span>
+            <a v-if="Blog.unsplash_key" href="#" @click.prevent="openUnsplashModal" class="text-text-color">search Unsplash</a>
         </div>
 
         <fullscreen-modal v-if="unsplashModalShown">
@@ -156,7 +156,7 @@
                     </div>
 
                     <input type="text" class="my-10 border-b border-very-light focus:outline-none w-full"
-                           v-if="Wink.unsplash_key"
+                           v-if="Blog.unsplash_key"
                            v-model="unsplashSearchTerm"
                            ref="unsplashSearch"
                            placeholder="search Unsplash">

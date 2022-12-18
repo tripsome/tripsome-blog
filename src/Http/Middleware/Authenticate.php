@@ -1,6 +1,6 @@
 <?php
 
-namespace Wink\Http\Middleware;
+namespace Tripsome\Blog\Http\Middleware;
 
 use Closure;
 use Illuminate\Auth\AuthenticationException;
@@ -38,11 +38,11 @@ class Authenticate
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($this->auth->guard('wink')->check()) {
-            $this->auth->shouldUse('wink');
+        if ($this->auth->guard('blog')->check()) {
+            $this->auth->shouldUse('blog');
         } else {
             throw new AuthenticationException(
-                'Unauthenticated.', ['wink'], route('wink.auth.login')
+                'Unauthenticated.', ['blog'], route('blog.auth.login')
             );
         }
 

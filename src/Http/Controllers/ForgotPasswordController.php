@@ -1,13 +1,13 @@
 <?php
 
-namespace Wink\Http\Controllers;
+namespace Tripsome\Blog\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Throwable;
-use Wink\Mail\ResetPasswordEmail;
-use Wink\WinkAuthor;
+use Tripsome\Blog\Mail\ResetPasswordEmail;
+use Tripsome\Blog\BlogAuthor;
 
 class ForgotPasswordController extends Controller
 {
@@ -18,7 +18,7 @@ class ForgotPasswordController extends Controller
      */
     public function showResetRequestForm()
     {
-        return view('wink::request-password-reset');
+        return view('blog::request-password-reset');
     }
 
     /**
@@ -32,7 +32,7 @@ class ForgotPasswordController extends Controller
             'email' => 'required|email',
         ])->validate();
 
-        if ($author = WinkAuthor::whereEmail(request('email'))->first()) {
+        if ($author = BlogAuthor::whereEmail(request('email'))->first()) {
             cache(['password.reset.'.$author->id => $token = Str::random()],
                 now()->addMinutes(30)
             );
@@ -42,7 +42,7 @@ class ForgotPasswordController extends Controller
             ));
         }
 
-        return redirect()->route('wink.password.forgot')->with('sent', true);
+        return redirect()->route('blog.password.forgot')->with('sent', true);
     }
 
     /**
@@ -58,13 +58,13 @@ class ForgotPasswordController extends Controller
 
             [$authorId, $token] = explode('|', $token);
 
-            $author = WinkAuthor::findOrFail($authorId);
+            $author = BlogAuthor::findOrFail($authorId);
         } catch (Throwable $e) {
-            return redirect()->route('wink.password.forgot')->with('invalidResetToken', true);
+            return redirect()->route('blog.password.forgot')->with('invalidResetToken', true);
         }
 
         if (cache('password.reset.'.$authorId) != $token) {
-            return redirect()->route('wink.password.forgot')->with('invalidResetToken', true);
+            return redirect()->route('blog.password.forgot')->with('invalidResetToken', true);
         }
 
         cache()->forget('password.reset.'.$authorId);
@@ -73,7 +73,7 @@ class ForgotPasswordController extends Controller
 
         $author->save();
 
-        return view('wink::reset-password', [
+        return view('blog::reset-password', [
             'password' => $password,
         ]);
     }

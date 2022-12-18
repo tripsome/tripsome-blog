@@ -1,6 +1,6 @@
 <?php
 
-namespace Wink;
+namespace Blog;
 
 use Carbon\CarbonInterface;
 
@@ -14,7 +14,7 @@ use Carbon\CarbonInterface;
  * @property CarbonInterface $created_at
  * @property array<mixed>|null $meta
  */
-class WinkPage extends AbstractWinkModel
+class BlogPage extends AbstractBlogModel
 {
     /**
      * The attributes that aren't mass assignable.
@@ -28,7 +28,7 @@ class WinkPage extends AbstractWinkModel
      *
      * @var string
      */
-    protected $table = 'wink_pages';
+    protected $table = 'blog_pages';
 
     /**
      * The primary key for the model.

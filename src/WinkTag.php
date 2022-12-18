@@ -1,6 +1,6 @@
 <?php
 
-namespace Wink;
+namespace Blog;
 
 use Carbon\CarbonInterface;
 use Illuminate\Support\Collection;
@@ -12,9 +12,9 @@ use Illuminate\Support\Collection;
  * @property CarbonInterface $updated_at
  * @property CarbonInterface $created_at
  * @property array<mixed>|null $meta
- * @property-read Collection<WinkPost> $posts
+ * @property-read Collection<BlogPost> $posts
  */
-class WinkTag extends AbstractWinkModel
+class BlogTag extends AbstractBlogModel
 {
     /**
      * The attributes that aren't mass assignable.
@@ -28,7 +28,7 @@ class WinkTag extends AbstractWinkModel
      *
      * @var string
      */
-    protected $table = 'wink_tags';
+    protected $table = 'blog_tags';
 
     /**
      * The primary key for the model.
@@ -67,7 +67,7 @@ class WinkTag extends AbstractWinkModel
      */
     public function posts()
     {
-        return $this->belongsToMany(WinkPost::class, 'wink_posts_tags', 'tag_id', 'post_id');
+        return $this->belongsToMany(BlogPost::class, 'blog_posts_tags', 'tag_id', 'post_id');
     }
 
     /**

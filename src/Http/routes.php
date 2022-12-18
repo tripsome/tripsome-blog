@@ -1,13 +1,13 @@
 <?php
 
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
-use Wink\Http\Controllers\ImageUploadsController;
-use Wink\Http\Controllers\LoginController;
-use Wink\Http\Controllers\PagesController;
-use Wink\Http\Controllers\PostsController;
-use Wink\Http\Controllers\SPAViewController;
-use Wink\Http\Controllers\TagsController;
-use Wink\Http\Controllers\TeamController;
+use Tripsome\Blog\Http\Controllers\ImageUploadsController;
+use Tripsome\Blog\Http\Controllers\LoginController;
+use Tripsome\Blog\Http\Controllers\PagesController;
+use Tripsome\Blog\Http\Controllers\PostsController;
+use Tripsome\Blog\Http\Controllers\SPAViewController;
+use Tripsome\Blog\Http\Controllers\TagsController;
+use Tripsome\Blog\Http\Controllers\TeamController;
 
 Route::middleware([InitializeTenancyByDomain::class])->group(function () {
     // Blog Posts...

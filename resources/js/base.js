@@ -5,8 +5,8 @@ import {Bus} from './bus.js';
 
 export default {
     computed: {
-        Wink() {
-            return Wink;
+        Blog() {
+            return Blog;
         }
     },
 
@@ -72,7 +72,7 @@ export default {
         http() {
             let instance = axios.create();
 
-            instance.defaults.baseURL = '/' + Wink.path;
+            instance.defaults.baseURL = '/' + Blog.path;
 
             instance.interceptors.response.use(
                 response => response,
@@ -83,7 +83,7 @@ export default {
                             break;
 
                         case 401:
-                            window.location.href = '/' + Wink.path + '/logout';
+                            window.location.href = '/' + Blog.path + '/logout';
                             break;
                     }
 

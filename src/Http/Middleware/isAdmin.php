@@ -1,6 +1,6 @@
 <?php
 
-namespace Wink\Http\Middleware;
+namespace Tripsome\Blog\Http\Middleware;
 
 use Closure;
 use Illuminate\Auth\AuthenticationException;

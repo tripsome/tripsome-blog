@@ -1,6 +1,6 @@
 <?php
 
-namespace Wink;
+namespace Blog;
 
 use Carbon\CarbonInterface;
 use DateTimeInterface;
@@ -24,10 +24,10 @@ use League\CommonMark\GithubFlavoredMarkdownConverter;
  * @property CarbonInterface $created_at
  * @property array<mixed>|null $meta
  * @property bool $markdown
- * @property-read WinkAuthor $author
- * @property-read Collection<WinkTag> $tags
+ * @property-read BlogAuthor $author
+ * @property-read Collection<BlogTag> $tags
  */
-class WinkPost extends AbstractWinkModel
+class BlogPost extends AbstractBlogModel
 {
     /**
      * The attributes that aren't mass assignable.
@@ -41,7 +41,7 @@ class WinkPost extends AbstractWinkModel
      *
      * @var string
      */
-    protected $table = 'wink_posts';
+    protected $table = 'blog_posts';
 
     /**
      * The primary key for the model.
@@ -91,7 +91,7 @@ class WinkPost extends AbstractWinkModel
      */
     public function tags()
     {
-        return $this->belongsToMany(WinkTag::class, 'wink_posts_tags', 'post_id', 'tag_id');
+        return $this->belongsToMany(BlogTag::class, 'blog_posts_tags', 'post_id', 'tag_id');
     }
 
     /**
@@ -101,7 +101,7 @@ class WinkPost extends AbstractWinkModel
      */
     public function author()
     {
-        return $this->belongsTo(WinkAuthor::class, 'author_id');
+        return $this->belongsTo(BlogAuthor::class, 'author_id');
     }
 
     public function thumb()

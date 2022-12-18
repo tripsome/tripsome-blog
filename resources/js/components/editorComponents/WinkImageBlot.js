@@ -2,7 +2,7 @@ import Quill from 'quill';
 
 let BlockEmbed = Quill.import('blots/block/embed');
 
-class WinkImageBlot extends BlockEmbed {
+class BlogImageBlot extends BlockEmbed {
     static create(value) {
         let node = super.create();
         let img = document.createElement('img');
@@ -34,8 +34,8 @@ class WinkImageBlot extends BlockEmbed {
     }
 }
 
-WinkImageBlot.tagName = 'div';
-WinkImageBlot.blotName = 'captioned-image';
-WinkImageBlot.className = 'embedded_image';
+BlogImageBlot.tagName = 'div';
+BlogImageBlot.blotName = 'captioned-image';
+BlogImageBlot.className = 'embedded_image';
 
-export default WinkImageBlot;
+export default BlogImageBlot;

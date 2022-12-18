@@ -15,7 +15,7 @@ Vue.use(VueCroppie);
 const router = new VueRouter({
     routes: Routes,
     mode: 'history',
-    base: '/' + Wink.path,
+    base: '/' + Blog.path,
 });
 
 Vue.component('page-header', require('./components/PageHeader').default);
@@ -39,7 +39,7 @@ Vue.directive('click-outside', require('./components/clickOutside'));
 Vue.mixin(Base);
 
 new Vue({
-    el: '#wink',
+    el: '#blog',
 
     router,
 

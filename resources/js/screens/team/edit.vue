@@ -52,7 +52,7 @@
          * Prepare the component.
          */
         mounted() {
-            document.title = "Author — Wink.";
+            document.title = "Author — Blog.";
 
             this.loadEntry();
 
@@ -140,7 +140,7 @@
                         this.$router.push({name: 'team-edit', params: {id: this.form.id}})
                     }
 
-                    if(this.Wink.author.id == this.entry.id && (this.theme != this.form.meta.theme || this.avatar != this.form.avatar)) {
+                    if(this.Blog.author.id == this.entry.id && (this.theme != this.form.meta.theme || this.avatar != this.form.avatar)) {
                         location.reload();
                     }
                 }).catch(error => {
@@ -245,9 +245,9 @@
             </h2>
 
             <div class="lg:w-2/3 mx-auto" v-if="ready && entry">
-                <h1 class="font-semibold text-3xl mb-10" v-if="id != 'new' && Wink.author.id != entry.id">Edit Author</h1>
-                <h1 class="font-semibold text-3xl mb-10" v-if="id == 'new' && Wink.author.id != entry.id">New Author</h1>
-                <h1 class="font-semibold text-3xl mb-10" v-if="Wink.author.id == entry.id">Your Profile</h1>
+                <h1 class="font-semibold text-3xl mb-10" v-if="id != 'new' && Blog.author.id != entry.id">Edit Author</h1>
+                <h1 class="font-semibold text-3xl mb-10" v-if="id == 'new' && Blog.author.id != entry.id">New Author</h1>
+                <h1 class="font-semibold text-3xl mb-10" v-if="Blog.author.id == entry.id">Your Profile</h1>
 
                 <div class="input-group">
                     <label for="name" class="input-label">Name</label>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wink\Mail;
+namespace Tripsome\Blog\Mail;
 
 use Illuminate\Mail\Mailable;
 
@@ -32,8 +32,8 @@ class ResetPasswordEmail extends Mailable
     public function build()
     {
         return $this->subject('Reset your password')
-            ->view('wink::emails.password', [
-                'link' => route('wink.password.reset', ['token' => $this->token]),
+            ->view('blog::emails.password', [
+                'link' => route('blog.password.reset', ['token' => $this->token]),
             ]);
     }
 }

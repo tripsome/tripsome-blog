@@ -71,7 +71,7 @@
          * Prepare the component.
          */
         mounted() {
-            document.title = "Edit Page — Wink.";
+            document.title = "Edit Page — Blog.";
 
             this.loadResources();
 

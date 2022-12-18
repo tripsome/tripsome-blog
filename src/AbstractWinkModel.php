@@ -1,10 +1,10 @@
 <?php
 
-namespace Wink;
+namespace Blog;
 
 use Illuminate\Database\Eloquent\Model;
 
-abstract class AbstractWinkModel extends Model
+abstract class AbstractBlogModel extends Model
 {
     /**
      * Get the current connection name for the model.
@@ -13,6 +13,6 @@ abstract class AbstractWinkModel extends Model
      */
     public function getConnectionName()
     {
-        return config('wink.database_connection');
+        return config('blog.database_connection');
     }
 }

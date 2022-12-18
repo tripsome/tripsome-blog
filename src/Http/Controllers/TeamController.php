@@ -1,12 +1,12 @@
 <?php
 
-namespace Wink\Http\Controllers;
+namespace Tripsome\Blog\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Wink\Http\Resources\TeamResource;
-use Wink\WinkAuthor;
+use Tripsome\Blog\Http\Resources\TeamResource;
+use Tripsome\Blog\BlogAuthor;
 
 class TeamController
 {
@@ -18,7 +18,7 @@ class TeamController
     public function index()
     {
         if(auth()->user()->IsAdmin()){
-            $entries = WinkAuthor::when(request()->has('search'), function ($q) {
+            $entries = BlogAuthor::when(request()->has('search'), function ($q) {
                 $q->where('name', 'LIKE', '%'.request('search').'%');
             })
                 ->orderBy('created_at', 'DESC')
@@ -27,7 +27,7 @@ class TeamController
     
             return TeamResource::collection($entries);
         }else{
-            $entries = WinkAuthor::when(request()->has('search'), function ($q) {
+            $entries = BlogAuthor::when(request()->has('search'), function ($q) {
                 $q->where('name', 'LIKE', '%'.request('search').'%');
             })
                 ->where('id', auth()->user()->id)
@@ -50,13 +50,13 @@ class TeamController
         if(auth()->user()->IsAdmin()){
             if ($id === 'new') {
                 return response()->json([
-                    'entry' => WinkAuthor::make([
+                    'entry' => BlogAuthor::make([
                         'id' => Str::uuid(),
                     ]),
                 ]);
             }
 
-            $entry = WinkAuthor::findOrFail($id);
+            $entry = BlogAuthor::findOrFail($id);
 
             return response()->json([
                 'entry' => $entry,
@@ -87,11 +87,11 @@ class TeamController
             validator($data, [
                 'meta.theme' => 'in:dark,light',
                 'name' => 'required',
-                'slug' => 'required|'.Rule::unique(config('wink.database_connection').'.wink_authors', 'slug')->ignore(request('id')),
-                'email' => 'required|email|'.Rule::unique(config('wink.database_connection').'.wink_authors', 'email')->ignore(request('id')),
+                'slug' => 'required|'.Rule::unique(config('blog.database_connection').'.blog_authors', 'slug')->ignore(request('id')),
+                'email' => 'required|email|'.Rule::unique(config('blog.database_connection').'.blog_authors', 'email')->ignore(request('id')),
             ])->validate();
 
-            $entry = $id !== 'new' ? WinkAuthor::findOrFail($id) : new WinkAuthor(['id' => request('id')]);
+            $entry = $id !== 'new' ? BlogAuthor::findOrFail($id) : new BlogAuthor(['id' => request('id')]);
 
             if (request('password')) {
                 $entry->password = Hash::make(request('password'));
@@ -123,13 +123,13 @@ class TeamController
     public function delete($id)
     {
         if(auth()->user()->IsAdmin()){
-            $entry = WinkAuthor::findOrFail($id);
+            $entry = BlogAuthor::findOrFail($id);
 
             if ($entry->posts()->count()) {
                 return response()->json(['message' => 'Please remove the author\'s posts first.'], 402);
             }
 
-            if ($entry->id == auth('wink')->user()->id) {
+            if ($entry->id == auth('blog')->user()->id) {
                 return response()->json(['message' => 'You cannot delete yourself.'], 402);
             }
 
