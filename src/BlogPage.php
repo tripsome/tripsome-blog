@@ -1,20 +1,20 @@
 <?php
 
-namespace Blog;
+namespace Tripsome\Blog;
 
 use Carbon\CarbonInterface;
-use Illuminate\Support\Collection;
 
 /**
  * @property string $id
  * @property string $slug
- * @property string $name
+ * @property string $title
+ * @property-write string $body
+ * @property-read string $content
  * @property CarbonInterface $updated_at
  * @property CarbonInterface $created_at
  * @property array<mixed>|null $meta
- * @property-read Collection<BlogPost> $posts
  */
-class BlogTag extends AbstractBlogModel
+class BlogPage extends AbstractBlogModel
 {
     /**
      * The attributes that aren't mass assignable.
@@ -28,7 +28,7 @@ class BlogTag extends AbstractBlogModel
      *
      * @var string
      */
-    protected $table = 'blog_tags';
+    protected $table = 'blog_pages';
 
     /**
      * The primary key for the model.
@@ -52,35 +52,23 @@ class BlogTag extends AbstractBlogModel
     public $incrementing = false;
 
     /**
-     * The attributes that should be casted.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [
+        'id' => 'string',
+        'body' => 'string',
         'meta' => 'array',
     ];
 
     /**
-     * The posts that has the tag.
+     * Get the renderable page content.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return string
      */
-    public function posts()
+    public function getContentAttribute()
     {
-        return $this->belongsToMany(BlogPost::class, 'blog_posts_tags', 'tag_id', 'post_id');
-    }
-
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($item) {
-            $item->posts()->detach();
-        });
+        return $this->body;
     }
 }

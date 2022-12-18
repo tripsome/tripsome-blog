@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog;
+namespace Tripsome\Blog;
 
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Auth\Authenticatable;

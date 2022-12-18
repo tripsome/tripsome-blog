@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog;
+namespace Tripsome\Blog;
 
 use App\Providers\TenancyServiceProvider;
 use Illuminate\Support\Facades\Route;

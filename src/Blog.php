@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog;
+namespace Tripsome\Blog;
 
 class Blog
 {
