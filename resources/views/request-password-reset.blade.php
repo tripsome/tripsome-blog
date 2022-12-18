@@ -22,7 +22,7 @@
 
         <div class="flex items-center mb-10">
             <h2 class="mr-2 font-semibold font-serif" :class="{'hidden': hideLogoOnSmallScreens, 'sm:block': hideLogoOnSmallScreens}">
-                <span class="text-light">W</span>ink.
+                <span class="text-light">B</span>log.
             </h2>
 
             <h2 class="font-normal">— Reset Password</h2>

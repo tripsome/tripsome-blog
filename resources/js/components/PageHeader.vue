@@ -16,7 +16,7 @@
                 <div class="flex items-center mr-auto h-8">
                     <h3 class="mr-5 font-semibold font-serif" :class="{'hidden': hideLogoOnSmallScreens, 'sm:block': hideLogoOnSmallScreens}">
                         <router-link to="/" class="no-underline text-text-color">
-                            <span class="text-light">W</span>ink.
+                            <span class="text-light">B</span>log.
                         </router-link>
                     </h3>
 
