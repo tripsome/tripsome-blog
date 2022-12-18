@@ -5,6 +5,7 @@ namespace Wink;
 use App\Providers\TenancyServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Wink\Http\Controllers\ForgotPasswordController;
 use Wink\Http\Controllers\LoginController;
 use Wink\Http\Middleware\Authenticate;
@@ -23,7 +24,8 @@ class WinkServiceProvider extends ServiceProvider
         $this->registerPublishing();
 
         $this->loadViewsFrom(
-            __DIR__.'/../resources/views', 'wink'
+            __DIR__ . '/../resources/views',
+            'wink'
         );
     }
 
@@ -33,29 +35,30 @@ class WinkServiceProvider extends ServiceProvider
      * @return void
      */
     private function registerRoutes()
-    {
-        $middlewareGroup = config('wink.middleware_group');
+    {  
+        Route::middleware([InitializeTenancyByDomain::class])->group(function () {
+            $middlewareGroup = config('wink.middleware_group');
+            Route::middleware($middlewareGroup)
+                ->as('wink.')
+                ->domain(config('wink.domain'))
+                ->prefix(config('wink.path'))
+                ->group(function () {
+                    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('auth.login');
+                    Route::post('/login', [LoginController::class, 'login'])->name('auth.attempt');
 
-        Route::middleware($middlewareGroup)
-            ->as('wink.')
-            ->domain(config('wink.domain'))
-            ->prefix(config('wink.path'))
-            ->group(function () {
-                Route::get('/login', [LoginController::class, 'showLoginForm'])->name('auth.login');
-                Route::post('/login', [LoginController::class, 'login'])->name('auth.attempt');
+                    Route::get('/password/forgot', [ForgotPasswordController::class, 'showResetRequestForm'])->name('password.forgot');
+                    Route::post('/password/forgot', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+                    Route::get('/password/reset/{token}', [ForgotPasswordController::class, 'showNewPassword'])->name('password.reset');
+                });
 
-                Route::get('/password/forgot', [ForgotPasswordController::class, 'showResetRequestForm'])->name('password.forgot');
-                Route::post('/password/forgot', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-                Route::get('/password/reset/{token}', [ForgotPasswordController::class, 'showNewPassword'])->name('password.reset');
-            });
-
-        Route::middleware([$middlewareGroup, Authenticate::class])
-            ->as('wink.')
-            ->domain(config('wink.domain'))
-            ->prefix(config('wink.path'))
-            ->group(function () {
-                $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
-            });
+            Route::middleware([$middlewareGroup, Authenticate::class])
+                ->as('wink.')
+                ->domain(config('wink.domain'))
+                ->prefix(config('wink.path'))
+                ->group(function () {
+                    $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+                });
+        });
     }
 
     /**
@@ -85,11 +88,11 @@ class WinkServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../public' => public_path('vendor/wink'),
+                __DIR__ . '/../public' => public_path('vendor/wink'),
             ], 'wink-assets');
 
             $this->publishes([
-                __DIR__.'/../config/wink.php' => config_path('wink.php'),
+                __DIR__ . '/../config/wink.php' => config_path('wink.php'),
             ], 'wink-config');
         }
     }
@@ -102,7 +105,8 @@ class WinkServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/wink.php', 'wink'
+            __DIR__ . '/../config/wink.php',
+            'wink'
         );
         $this->commands([
             Console\InstallCommand::class,

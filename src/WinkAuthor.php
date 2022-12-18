@@ -22,6 +22,9 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class WinkAuthor extends AbstractWinkModel implements Authenticatable
 {
+    const ADMIN_TYPE = 100;
+    const DEFAULT_TYPE = 1;
+    
     /**
      * The attributes that aren't mass assignable.
      *
