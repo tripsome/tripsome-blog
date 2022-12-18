@@ -106,9 +106,10 @@ class BlogPost extends AbstractBlogModel
 
     public function thumb()
     {
+        $tenantId = tenant()->id;
         $image =  $this->featured_image;
         $image = explode("storage/blog/", $image);
-        return storage_path("/blog/thumb/$image[1]");
+        return "/storage/$tenantId/blog/thumb/$image[1]";
     }
 
     /**
