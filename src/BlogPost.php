@@ -111,7 +111,7 @@ class BlogPost extends AbstractBlogModel
         if ($image === NULL) return "";
 
         $image = explode("storage/blog/", $image);
-        return "/storage/blog/thumb/$image[1]";
+        return "/storage/$tenantId/blog/thumb/$image[1]";
     }
 
     /**
