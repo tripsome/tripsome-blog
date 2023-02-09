@@ -108,8 +108,10 @@ class BlogPost extends AbstractBlogModel
     {
         $tenantId = tenant()->id;
         $image =  $this->featured_image;
+        if ($image === NULL) return "";
+
         $image = explode("storage/blog/", $image);
-        return count((array)$image) > 0 ? "/storage/blog/thumb/$image[1]" : "";
+        return "/storage/blog/thumb/$image[1]";
     }
 
     /**
@@ -119,7 +121,7 @@ class BlogPost extends AbstractBlogModel
      */
     public function getContentAttribute()
     {
-        if (! $this->markdown) {
+        if (!$this->markdown) {
             return $this->body;
         }
 
