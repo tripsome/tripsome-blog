@@ -109,7 +109,7 @@ class BlogPost extends AbstractBlogModel
         $tenantId = tenant()->id;
         $image =  $this->featured_image;
         $image = explode("storage/blog/", $image);
-        return "/storage/$tenantId/blog/thumb/$image[1]";
+        return count((array)$image) > 0 ? "/storage/blog/thumb/$image[1]" : "";
     }
 
     /**
